@@ -1,0 +1,193 @@
+---
+    import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contáctanos | Game Cave">
+    <main>
+        <section class="relative min-h-screen py-5 px-24 flex items-center flex-col 2xl:p-12 max-md:p-12">
+            <div class="max-w-[800px] text-center">
+                <h2 class="text-4xl font-medium text-primary">¡Contáctanos!</h2>
+                <p class="font-light mt-6 text-lg leading-8">Si deseas contactarnos, por favor llena este formulario explicando la razón por la que nos escribes. Estaremos encantados de ayudarte y responder a tus preguntas lo antes posible.</p>
+            </div>
+            <div class="w-full flex justify-center items-center mt-7 max-md:flex-col">
+                <div class="w-1/2 flex flex-col max-md:mb-10 max-md:w-full">
+                    <div class="relative py-5 px-0 flex">
+                        <div class="min-w-14 h-14 bg-bg-200 flex justify-center items-center rounded-full text-4xl">
+                            <ion-icon name="call-outline"></ion-icon>
+                        </div>
+                        <div class="flex ml-5 text-lg flex-col font-light">
+                            <h3 class="font-medium text-primary-200">Dirección</h3>
+                            <p>Calle Ficticia 123<br>Colonia Imaginaria<br>San Luis Potosí, S.L.P., México.</p>
+                        </div>
+                    </div>
+                    <div class="relative py-5 px-0 flex">
+                        <div class="min-w-14 h-14 bg-bg-200 flex justify-center items-center rounded-full text-4xl">
+                            <ion-icon name="map-outline"></ion-icon>
+                        </div>
+                        <div class="flex ml-5 text-lg flex-col font-light">
+                            <h3 class="font-medium text-primary-200">Teléfono</h3>
+                            <p>+52 444 123 4567</p>
+                        </div>
+                    </div>
+                    <div class="relative py-5 px-0 flex">
+                        <div class="min-w-14 h-14 bg-bg-200 flex justify-center items-center rounded-full text-4xl">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </div>
+                        <div class="flex ml-5 text-lg flex-col font-light">
+                            <h3 class="font-medium text-primary-200">Email</h3>
+                            <p>jordanmedina49@hotmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-2/5 p-10 bg-bg-200 max-md:w-full">
+                    <form method="POST" id="form">
+                        <input type="hidden" name="access_key" value="0e8b8506-0f9a-42d6-a860-0546dd6c4977">
+                        <h2 class="text-xl text-primary-200 font-medium">Enviar Mensaje</h2>
+                        <div class="relative w-full mt-2">
+                            <input type="text" name="Nombre Completo" autocomplete="off" id="name" class="item w-full px-0 py-2 text-xs my-1 bg-bg-200 border-b-2 border-b-solid border-b-primary-200 focus:outline-none transition-colors duration-400 error:border-b-red-500" placeholder="Nombre Completo">
+                            <span class="left-0 text-xs duration-500 text-red-500 hidden error-txt">El nombre no puede estar en blanco</span>
+                        </div>
+                        <div class="relative w-full mt-2">
+                            <input type="text" name="Email" autocomplete="off" id="email" class="item w-full px-0 py-2 text-xs my-1 bg-bg-200 border-b-2 border-b-solid border-b-primary-200 focus:outline-none transition-colors duration-400 error:border-b-red-500" placeholder="Email">
+                            <span class="left-0 text-xs duration-500 text-red-500 hidden error-txt email">El email no puede estar en blanco</span>
+                        </div>
+                        <div class="relative w-full mt-2">
+                            <textarea name="Mensaje" autocomplete="off" id="message" class="item w-full px-0 py-1 text-xs my-2 bg-bg-200 border-b-2 border-b-solid border-b-primary-200 resize-none focus:outline-none transition-colors duration-400 error:border-b-red-500" placeholder="Escribe tu Mensaje..."></textarea>
+                            <span class="left-0 text-xs duration-500 text-red-500 hidden error-txt">El mensaje no puede estar en blanco</span>
+                        </div>
+                        <div class="relative w-full mt-2">
+                            <button type="submit" class="w-[100px] bg-primary-200 cursor-pointer p-2 text-sm transition-all duration-500 hover:bg-primary">Enviar</button>
+                        </div>
+                        <div id="result" class="hidden"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    //Ejecutar el script cuando todo el contenido del DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", () => {
+        //Obtener elementos del formulario y campos específicos
+        const form = document.getElementById('form') as HTMLFormElement | null;
+        const fullName = document.getElementById("name") as HTMLInputElement;
+        const email = document.getElementById("email") as HTMLInputElement;
+        const message = document.getElementById("message") as HTMLTextAreaElement;
+        const result = document.getElementById('result') as HTMLElement;
+
+        //Función para validar el formato del correo electrónico
+        function checkEmail() {
+            const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            const errorTxtEmail = document.querySelector(".error-txt.email") as HTMLElement | null;
+
+            //Verificar si el valor del campo de email coincide con la expresión regular
+            if(email && !email.value.match(emailRegex)) {
+                email.classList.add("error");
+                email.parentElement?.classList.add("error");
+
+                //Mostrar mensaje de error adecuado según el valor del campo de email
+                if(email.value !== "") {
+                    errorTxtEmail && (errorTxtEmail.innerText = "Introduce una dirección de correo válida");
+                }else {
+                    errorTxtEmail && (errorTxtEmail.innerText = "El email no puede estar en blanco");
+                }
+            }else {
+                email?.classList.remove("error");
+                email?.parentElement?.classList.remove("error");
+            }
+        }
+
+        //Función para validar todos los campos del formulario
+        function checkInputs() {
+            const items = document.querySelectorAll(".item") as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
+
+            //Iterar sobre todos los campos del formulario
+            for(const item of items) {
+                //Añadir clase de error si el campo está vacío
+                if(item.value == "") {
+                    item.classList.add("error");
+                    item.parentElement?.classList.add("error");
+                }
+
+                //Validar el campo de email si tiene algún valor
+                if(items[1].value != "") {
+                    checkEmail();
+                }
+
+                //Añadir un evento para validar el email al escribir
+                items[1].addEventListener("keyup", () =>  {
+                    checkEmail();
+                });
+
+                //Añadir un evento para validar los campos al escribir
+                item.addEventListener("keyup", () => {
+                    if(item.value != "") {
+                        item.classList.add("correct");
+                        item.parentElement?.classList.add("correct");
+                        item.classList.remove("error");
+                        item.parentElement?.classList.remove("error");
+                    }else {
+                        item.classList.add("error");
+                        item.parentElement?.classList.add("error");
+                        item.classList.remove("correct");
+                        item.parentElement?.classList.remove("correct");
+                    }
+                })
+            }
+        }
+
+        //Añadir un evento de envío de formulario
+        form?.addEventListener("submit", (e) => {
+            e.preventDefault(); //Prevenir el comportamiento predeterminado del formulario
+            checkInputs(); //Validar los campos del formulario
+
+            //Verificar si todos los campos son válidos
+            if(
+                !fullName.classList.contains("error") &&
+                !email.classList.contains("error") &&
+                !message.classList.contains("error")
+            ) {
+                //Crear un objeto FormData con los datos del formulario
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                //Convertir los datos del formulario a un objeto y luego a JSON
+                const json = JSON.stringify(object);
+
+                //Enviar los datos del formulario a través de una solicitud POST
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                }).then(async (response) => {
+                    const jsonResponse = await response.json();
+                    //Manejar la respuesta exitosa
+                    if(response.status === 200) {
+                        result.className = 'success';
+                        result.innerText = "¡Tu mensaje fue enviado correctamente!";
+                    }else {
+                        console.log(response);
+                        result.className = 'error';
+                        result.innerText = jsonResponse.message || "Hubo un error al enviar tu mensaje";
+                    }
+                }).catch(error => {
+                    //Manejar errores en la solicitud
+                    console.log(error);
+                    result.className = 'error';
+                    result.innerText = "Tu mensaje falló a la hora de enviarse";
+                }).then(function() {
+                    //Resetear el formulario y ocultar el mensaje de resultado después de 3 segundos
+                    form.reset();
+                    setTimeout(() => {
+                        result.style.display = "none";
+                    }, 3000);
+                });
+
+                form.reset(); //Resetear el formulario
+            }
+        });
+    });
+</script>
