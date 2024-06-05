@@ -1,0 +1,29 @@
+<div class="hidden car z-[1000]" id="car">
+    <div class="fixed inset-0 bg-[rgba(68,68,68,0.7)] flex justify-center items-center car__overlay">
+        <div class="mt-10 rounded-lg w-[90%] max-w-[550px] carrito__contenedor">
+            <div class="p-5 bg-bg rounded-t-lg flex justify-between items-center car__header">
+                <h4 class="text-xl font-semibold carrito__titulo">Carrito</h4>
+                <button class="bg-transparent border-none cursor-pointer text-white transition-all duration-300 hover:text-bg-200 hover:bg-white rounded-md car-btn-close" data-accion="close-car">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="bg-bg-200 p-5 flex flex-col gap-5 car-body">
+                <p class="text-center car-alert-no-articles hidden">No hay productos en tu carrito.</p>
+            </div>
+            <div class="p-5 bg-bg rounded-b-lg">
+                <div class="flex justify-between car-container-total">
+                    <div>
+                        <p class="text-sm mb-1">Total:</p>
+                        <p class="text-xl font-semibold car-total">$0.00</p>
+                    </div>
+                    <button class="bg-blue-600 text-white px-6 py-3 text-lg border-none cursor-pointer transition-all duration-200 rounded-md car-btn-buy" id="car-btn-buy" data-accion="car-btn-buy">Comprar</button>
+                </div>
+                <div class="hidden justify-center car-container-btn-back" data-accion="close-car">
+                    <button class="bg-blue-600 text-white px-6 py-3 text-lg border-none cursor-pointer transition-all duration-200 rounded-md car-btn-back ">Regresar a la tienda</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
