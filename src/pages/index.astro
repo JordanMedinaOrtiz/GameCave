@@ -3,7 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro'
 import Products from '../components/Products.astro'
 
-<script src="/src/scripts/header.js"></script>
+document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelector('.nav-links');
+    const menuIcon = document.querySelector('.menu-icon');
+
+    menuIcon.addEventListener('click', () => {
+        const isMenuOpen = menuIcon.getAttribute('name') === 'menu';
+        menuIcon.setAttribute('name', isMenuOpen ? 'close' : 'menu');
+        navLinks.classList.toggle('hidden');
+    });
+});
 ---
 
 <Layout title="Game Cave">
